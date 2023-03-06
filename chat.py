@@ -2,8 +2,10 @@ import openai
 import json
 import argparse
 
+root = "/Users/tomshlomi/ChatGPT/TerminalChat/"
+
 def ask(question : str):
-    with open('context.json', 'r') as fin:
+    with open(root + 'context.json', 'r') as fin:
         context = json.load(fin)
     try:
         context.append({"role": "user", "content": question})
@@ -13,16 +15,16 @@ def ask(question : str):
         return None
     context.append({"role": "assistant", "content": answer})
     print(answer)
-    with open('context.json', 'w') as fout:
+    with open(root + 'context.json', 'w') as fout:
         json.dump(context, fout)
     return answer
 
 def clear():
-    with open('context.json', 'r') as fin:
+    with open(root + 'context.json', 'r') as fin:
         context = json.load(fin)
-    with open('log.json', 'w') as log:
+    with open(root + 'log.json', 'w') as log:
         json.dump(context, log)
-    with open('context.json', 'w') as fout:
+    with open(root + 'context.json', 'w') as fout:
         json.dump([{"role": "system", "content": "You are Assistant, a helpful, harmless and honest chatbot."}], fout)
 
 if __name__ == "__main__":
